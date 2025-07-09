@@ -1,0 +1,23 @@
+.{
+    .name = "dispatch",
+    .version = "0.0.1",
+    .minimum_zig_version = "0.13.0",
+    .dependencies = .{
+        .httpz = .{
+            .url = "https://github.com/karlseguin/http.zig/archive/44b97984c6a9613634e238d27ca6cdff4d4abebd.tar.gz",
+            .hash = "122034afde1b4ff5971787929d1a4a8ef175e1c18fe0cf4ffc1af1ce0c95c7b6be7b",
+        },
+        .protocol = .{
+            .path = "../protocol",
+        },
+        .tls12 = .{
+            .url = "https://github.com/melonedo/zig-tls12/archive/f2cbb84.tar.gz",
+            .hash = "12202bb2c3824deecd4ccd666ca3dcb9c92c2c68698afdb92b382c0f5cb1b86da8bc",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
