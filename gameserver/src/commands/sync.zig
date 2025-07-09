@@ -13,7 +13,7 @@ const Allocator = std.mem.Allocator;
 const CmdID = protocol.CmdID;
 const Error = commandhandler.Error;
 
-// function to check the list if true
+// 检查列表中是否包含指定ID的函数
 fn isInList(id: u32, list: []const u32) bool {
     for (list) |item| {
         if (item == id) {
@@ -106,10 +106,10 @@ pub fn onSyncAvatar(session: *Session, _: []const u8, allocator: Allocator) Erro
         }
         try char.avatar_list.append(avatar);
     }
-    // rewrite data of avatar in config
+    // 重写配置中角色的数据
     for (config.avatar_config.items) |avatarConf| {
         var avatar = protocol.Avatar.init(allocator);
-        // basic info
+        // 基本信息
         avatar.base_avatar_id = switch (avatarConf.id) {
             8001...8008 => 8001,
             1224 => 1001,
@@ -128,7 +128,7 @@ pub fn onSyncAvatar(session: *Session, _: []const u8, allocator: Allocator) Erro
         for (0..6) |i| {
             try avatar.equip_relic_list.append(.{
                 .relic_unique_id = nextGlobalId(), // uid
-                .type = @intCast(i), // slot
+                .type = @intCast(i), // 插槽
             });
         }
         var talentLevel: u32 = 0;
@@ -186,7 +186,7 @@ pub fn onSyncMultiPath(session: *Session, _: []const u8, allocator: Allocator) E
     var counts: [6]u32 = [_]u32{0} ** 6;
     var multis: [6]protocol.MultiPathAvatarInfo = undefined;
     for (&multis, avatar_types, 0..) |*multi, avatar_type, i| {
-        std.debug.print("MULTIPATH AVATAR INDEX: {} IS {}\n", .{ i, avatar_type });
+        std.debug.print("多路径角色索引: {} 是 {}\n", .{ i, avatar_type });
         multi.* = protocol.MultiPathAvatarInfo.init(allocator);
         multi.avatar_id = avatar_type;
         if (avatar_type == .Mar_7thKnightType) {
@@ -292,7 +292,7 @@ pub fn UidGen() type {
     };
 }
 pub fn onGenerateAndSync(session: *Session, placeholder: []const u8, allocator: Allocator) Error!void {
-    try commandhandler.sendMessage(session, "Sync items with config\n", allocator);
+    try commandhandler.sendMessage(session, "使用配置同步物品\n", allocator);
     try syncItems(session, allocator, false);
     try syncItems(session, allocator, true);
     try onSyncAvatar(session, placeholder, allocator);

@@ -2,14 +2,14 @@ const std = @import("std");
 const httpz = @import("httpz");
 
 pub fn onShieldLogin(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onShieldLogin: {any}", .{req.body_len});
-    //std.log.debug("onShieldLogin BODY: {any}", .{req}); game breaking
+    std.log.debug("Shield登录: {any}", .{req.body_len});
+    //std.log.debug("Shield登录正文: {any}", .{req}); 会导致游戏崩溃
 
     try res.json(.{
         .data = .{
             .account = .{
                 .area_code = "**",
-                .email = "ReversedRoooms@StarRail.com",
+                .email = "Ciallo～(∠・ω< )⌒☆",
                 .country = "RU",
                 .is_email_verify = "1",
                 .token = "aa",
@@ -26,13 +26,13 @@ pub fn onShieldLogin(req: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onShieldVerify(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onShieldVerify: {any}", .{req.body_len});
+    std.log.debug("Shield验证: {any}", .{req.body_len});
 
     try res.json(.{
         .data = .{
             .account = .{
                 .area_code = "**",
-                .email = "ReversedRoooms@StarRail.com",
+                .email = "Ciallo～(∠・ω< )⌒☆",
                 .country = "RU",
                 .is_email_verify = "1",
                 .token = "aa",
@@ -49,7 +49,7 @@ pub fn onShieldVerify(req: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onVerifyLogin(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onVerifyLogin: {any}", .{req.body_len});
+    std.log.debug("验证登录: {any}", .{req.body_len});
 
     var token: []const u8 = "aa";
     var uid: []const u8 = "1337";
@@ -70,7 +70,7 @@ pub fn onVerifyLogin(req: *httpz.Request, res: *httpz.Response) !void {
                 .area_code = "**",
                 .country = "CN",
                 .is_email_verify = "1",
-                .email = "ReversedRoooms@StarRail.com",
+                .email = "Ciallo～(∠・ω< )⌒☆",
                 .token = token,
                 .uid = uid,
             },
@@ -79,7 +79,7 @@ pub fn onVerifyLogin(req: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onComboTokenReq(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onComboTokenReq: {any}", .{req.body_len});
+    std.log.debug("组合令牌请求: {any}", .{req.body_len});
 
     try res.json(.{
         .data = .{
@@ -96,7 +96,7 @@ pub fn onComboTokenReq(req: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onRiskyApiCheck(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onRiskyApiCheck: {any}", .{req.body_len});
+    std.log.debug("风险API检查: {any}", .{req.body_len});
 
     try res.json(.{
         .retcode = 0,
@@ -110,7 +110,7 @@ pub fn onRiskyApiCheck(req: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onGetConfig(_: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onGetConfig: ", .{});
+    std.log.debug("获取配置: ", .{});
 
     try res.json(.{
         .retcode = 0,
@@ -141,7 +141,7 @@ pub fn onGetConfig(_: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onLoadConfig(_: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onLoadConfig: ", .{});
+    std.log.debug("加载配置: ", .{});
 
     try res.json(.{
         .retcode = 0,
@@ -190,7 +190,7 @@ pub fn onLoadConfig(_: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onappLoginByPassword(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onappLoginByPassword: {any}", .{req.body_len});
+    std.log.debug("密码登录: {any}", .{req.body_len});
 
     try res.json(.{
         .retcode = 0,
@@ -207,11 +207,11 @@ pub fn onappLoginByPassword(req: *httpz.Request, res: *httpz.Response) !void {
                 .token_type = "1",
             },
             .user_info = .{
-                .account_name = "ReversedRooms",
+                .account_name = "Ciallo～(∠・ω< )⌒☆",
                 .aid = "1337",
                 .area_code = "**",
                 .country = "RU",
-                .email = "ReversedRoooms@StarRail.com",
+                .email = "Ciallo～(∠・ω< )⌒☆",
                 .is_email_verify = "1",
             },
         },

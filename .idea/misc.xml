@@ -6,9 +6,6 @@
   <component name="Kotlin2JsCompilerArguments">
     <option name="moduleKind" value="plain" />
   </component>
-  <component name="KotlinCodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
-  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider"><![CDATA[{
   "isMigrated": true
@@ -23,17 +20,5 @@
         </selected-state>
       </profile-state>
     </entry>
-  </component>
-  <component name="SaveActionSettings">
-    <option name="actions">
-      <set>
-        <option value="activate" />
-        <option value="organizeImports" />
-        <option value="reformat" />
-        <option value="missingOverrideAnnotation" />
-        <option value="useBlocks" />
-      </set>
-    </option>
-    <option name="configurationPath" value="" />
   </component>
 </project>

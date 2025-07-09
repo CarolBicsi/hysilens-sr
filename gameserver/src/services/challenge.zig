@@ -28,7 +28,7 @@ pub fn UidGenerator() type {
         }
 
         pub fn nextId(self: *Self) u32 {
-            self.current_id +%= 1; // Using wrapping addition
+            self.current_id +%= 1; // 使用环绕加法
             return self.current_id;
         }
     };
@@ -138,20 +138,20 @@ pub fn onGetCurChallengeScRsp(session: *Session, _: *const Packet, allocator: Al
         rsp.cur_challenge = cur_challenge_info;
         try rsp.lineup_list.append(lineup_info);
 
-        std.debug.print("CURRENT CHALLENGE STAGE ID:{}\n", .{challenge_stageID});
-        std.debug.print("CURRENT CHALLENGE LINEUP AVATAR ID:{}\n", .{avatar_list});
-        std.debug.print("CURRENT CHALLENGE MONSTER ID:{}\n", .{challenge_monsterID});
+        std.debug.print("当前挑战关卡 ID:{}\n", .{challenge_stageID});
+        std.debug.print("当前挑战队伍角色 ID:{}\n", .{avatar_list});
+        std.debug.print("当前挑战怪物 ID:{}\n", .{challenge_monsterID});
         if (challenge_mode == 0) {
-            std.debug.print("CURRENT CHALLENGE: {} MOC\n", .{challenge_mode});
+            std.debug.print("当前挑战: {} 忘却之庭\n", .{challenge_mode});
         } else if (challenge_mode == 1) {
-            std.debug.print("CURRENT CHALLENGE: {} PF\n", .{challenge_mode});
-            std.debug.print("CURRENT CHALLENGE STAGE BLESSING ID:{}, SELECTED BLESSING ID:{}\n", .{ challenge_blessing[0], challenge_blessing[1] });
+            std.debug.print("当前挑战: {} 虚构叙事\n", .{challenge_mode});
+            std.debug.print("当前挑战关卡祝福 ID:{}, 选择的祝福 ID:{}\n", .{ challenge_blessing[0], challenge_blessing[1] });
         } else {
-            std.debug.print("CURRENT CHALLENGE: {} AS\n", .{challenge_mode});
-            std.debug.print("CURRENT CHALLENGE STAGE BLESSING ID:{}, SELECTED BLESSING ID:{}\n", .{ challenge_blessing[0], challenge_blessing[1] });
+            std.debug.print("当前挑战: {} 末日幻影\n", .{challenge_mode});
+            std.debug.print("当前挑战关卡祝福 ID:{}, 选择的祝福 ID:{}\n", .{ challenge_blessing[0], challenge_blessing[1] });
         }
     } else {
-        std.debug.print("CURRENT ON CHALLENGE STATE: {}\n", .{on_challenge});
+        std.debug.print("当前挑战状态: {}\n", .{on_challenge});
     }
 
     try session.send(CmdID.CmdGetCurChallengeScRsp, rsp);
@@ -206,7 +206,7 @@ pub fn onStartChallenge(session: *Session, packet: *const Packet, allocator: All
 
     on_challenge = true;
     try session.send(CmdID.CmdStartChallengeScRsp, rsp);
-    std.debug.print("SEND PLANE ID {} FLOOR ID {} ENTRY ID {} GROUP ID {} MAZE GROUP ID {}\n", .{
+    std.debug.print("发送平面 ID {} 楼层 ID {} 入口 ID {} 组 ID {} 迷宫组 ID {}\n", .{
         challenge_planeID,
         challenge_floorID,
         challenge_entryID,

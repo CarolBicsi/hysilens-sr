@@ -14,7 +14,7 @@ const unstuck_command = @import("./commands/unstuck.zig");
 const sync_command = @import("./commands/sync.zig");
 const refill_command = @import("./commands/refill.zig");
 
-// Add other errors if needed
+// 如果需要可以添加其他错误
 const SystemErrors = error{ CommandError, SystemResources, Unexpected, AccessDenied, WouldBlock, ConnectionResetByPeer, OutOfMemory, DiskQuota, FileTooBig, InputOutput, NoSpaceLeft, DeviceBusy, InvalidArgument, BrokenPipe, OperationAborted };
 const FileErrors = error{ NotOpenForWriting, LockViolation, Overflow, InvalidCharacter, ProcessFdQuotaExceeded, SystemFdQuotaExceeded, SymLinkLoop, NameTooLong, FileNotFound, NotDir, NoDevice, SharingViolation, PathAlreadyExists, PipeBusy, InvalidUtf8, InvalidWtf8, BadPathName, NetworkNotFound, AntivirusInterference, IsDir, FileLocksNotSupported, FileBusy };
 const NetworkErrors = error{ ConnectionTimedOut, NotOpenForReading, SocketNotConnected, Unseekable, StreamTooLong };
@@ -43,11 +43,11 @@ const commandList = [_]Command{
 
 pub fn handleCommand(session: *Session, msg: []const u8, allocator: Allocator) Error!void {
     if (msg.len < 1 or msg[0] != '/') {
-        std.debug.print("Message Text 2: {any}\n", .{msg});
-        return sendMessage(session, "Commands must start with a '/'", allocator);
+        std.debug.print("消息文本 2: {any}\n", .{msg});
+        return sendMessage(session, "命令必须以 '/' 开头", allocator);
     }
 
-    const input = msg[1..]; // Remove the leading '/'
+    const input = msg[1..]; // 移除开头的 '/'
     var tokenizer = std.mem.tokenize(u8, input, " ");
     const command = tokenizer.next().?;
     const args = tokenizer.rest();
@@ -57,7 +57,7 @@ pub fn handleCommand(session: *Session, msg: []const u8, allocator: Allocator) E
             return try cmd.func(session, args, allocator);
         }
     }
-    try sendMessage(session, "Invalid command", allocator);
+    try sendMessage(session, "无效命令", allocator);
 }
 
 pub fn sendMessage(session: *Session, msg: []const u8, allocator: Allocator) Error!void {
@@ -66,6 +66,6 @@ pub fn sendMessage(session: *Session, msg: []const u8, allocator: Allocator) Err
     chat.chat_type = protocol.ChatType.CHAT_TYPE_PRIVATE;
     chat.source_uid = 2000;
     chat.message_text = .{ .Const = msg };
-    chat.target_uid = 1; // receiver_id
+    chat.target_uid = 114514; // 接收者ID
     try session.send(CmdID.CmdRevcMsgScNotify, chat);
 }

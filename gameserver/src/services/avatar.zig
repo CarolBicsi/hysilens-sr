@@ -60,7 +60,7 @@ pub fn onGetAvatarData(session: *Session, packet: *const Packet, allocator: Allo
     var counts: [6]u32 = [_]u32{0} ** 6;
     var multis: [6]protocol.MultiPathAvatarInfo = undefined;
     for (&multis, avatar_types, 0..) |*multi, avatar_type, i| {
-        std.debug.print("MULTIPATH AVATAR INDEX: {} IS {}\n", .{ i, avatar_type });
+        std.debug.print("多路径头像索引：{} 为 {}\n", .{ i, avatar_type });
         multi.* = protocol.MultiPathAvatarInfo.init(allocator);
         multi.avatar_id = avatar_type;
         if (avatar_type == .Mar_7thKnightType) {

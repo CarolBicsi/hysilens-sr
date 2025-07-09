@@ -14,36 +14,36 @@ const Error = commandhandler.Error;
 pub fn handle(session: *Session, args: []const u8, allocator: Allocator) Error!void {
     var arg_iter = std.mem.split(u8, args, " ");
     const entry_id_str = arg_iter.next() orelse {
-        try commandhandler.sendMessage(session, "Error: Missing arguments.\nUsage: /tp <entry_id> [plane_id] [floor_id]", allocator);
+        try commandhandler.sendMessage(session, "错误：缺少参数。\n用法：/tp <entry_id> [plane_id] [floor_id]", allocator);
         return;
     };
     const entry_id = std.fmt.parseInt(u32, entry_id_str, 10) catch {
-        try commandhandler.sendMessage(session, "Error: Invalid entry ID. Please provide a valid unsigned 32-bit integer.", allocator);
+        try commandhandler.sendMessage(session, "错误：无效的入口ID。请提供一个有效的32位无符号整数。", allocator);
         return;
     };
     var plane_id: ?u32 = null;
     if (arg_iter.next()) |plane_id_str| {
         plane_id = std.fmt.parseInt(u32, plane_id_str, 10) catch {
-            try commandhandler.sendMessage(session, "Error: Invalid plane ID. Please provide a valid unsigned 32-bit integer.", allocator);
+            try commandhandler.sendMessage(session, "错误：无效的平面ID。请提供一个有效的32位无符号整数。", allocator);
             return;
         };
     }
     var floor_id: ?u32 = null;
     if (arg_iter.next()) |floor_id_str| {
         floor_id = std.fmt.parseInt(u32, floor_id_str, 10) catch {
-            try commandhandler.sendMessage(session, "Error: Invalid floor ID. Please provide a valid unsigned 32-bit integer.", allocator);
+            try commandhandler.sendMessage(session, "错误：无效的楼层ID。请提供一个有效的32位无符号整数。", allocator);
             return;
         };
     }
-    var tp_msg = try std.fmt.allocPrint(allocator, "Teleporting to entry ID: {d}", .{entry_id});
+    var tp_msg = try std.fmt.allocPrint(allocator, "传送到入口ID：{d}", .{entry_id});
     if (plane_id) |pid| {
-        tp_msg = try std.fmt.allocPrint(allocator, "{s}, plane ID: {d}", .{ tp_msg, pid });
+        tp_msg = try std.fmt.allocPrint(allocator, "{s}，平面ID：{d}", .{ tp_msg, pid });
     }
     if (floor_id) |fid| {
-        tp_msg = try std.fmt.allocPrint(allocator, "{s}, floor ID: {d}", .{ tp_msg, fid });
+        tp_msg = try std.fmt.allocPrint(allocator, "{s}，楼层ID：{d}", .{ tp_msg, fid });
     }
 
-    try commandhandler.sendMessage(session, std.fmt.allocPrint(allocator, "Teleporting to entry ID: {d} {any} {any}\n", .{ entry_id, plane_id, floor_id }) catch "Error formatting message", allocator);
+    try commandhandler.sendMessage(session, std.fmt.allocPrint(allocator, "传送到入口ID：{d} {any} {any}\n", .{ entry_id, plane_id, floor_id }) catch "格式化消息错误", allocator);
 
     var planeID: u32 = 0;
     var floorID: u32 = 0;

@@ -13,7 +13,7 @@ const CmdID = protocol.CmdID;
 const Error = commandhandler.Error;
 
 pub fn onRefill(session: *Session, _: []const u8, allocator: Allocator) Error!void {
-    try commandhandler.sendMessage(session, "Refill skill point\n", allocator);
+    try commandhandler.sendMessage(session, "补充技能点\n", allocator);
     var sync = protocol.SyncLineupNotify.init(allocator);
     var lineup_mgr = LineupManager.init(allocator);
     const lineup = try lineup_mgr.createLineup();

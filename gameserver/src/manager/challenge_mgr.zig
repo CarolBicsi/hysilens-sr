@@ -49,7 +49,7 @@ pub const ChallengeManager = struct {
         if (NodeCheck.challenge_node == 0) {
             for (challenge_config.challenge_config.items) |challengeConf| {
                 if (challengeConf.id == challenge_id) {
-                    std.debug.print("TRACING CONFIG ID {} WITH CHALLENGE ID {}\n", .{ challengeConf.id, challenge_id });
+                    std.debug.print("跟踪质询 ID {} 的配置 ID {}\n", .{ challengeConf.id, challenge_id });
                     for (entrance_config.map_entrance_config.items) |entrance| {
                         if (entrance.id == challengeConf.map_entrance_id) {
                             for (maze_config.maze_plane_config.items) |maze| {
@@ -99,7 +99,7 @@ pub const ChallengeManager = struct {
         } else {
             for (challenge_config.challenge_config.items) |challengeConf| {
                 if (challengeConf.id == challenge_id) {
-                    std.debug.print("TRACING CONFIG ID {} WITH CHALLENGE ID {}\n", .{ challengeConf.id, challenge_id });
+                    std.debug.print("跟踪质询 ID {} 的配置 ID {}\n", .{ challengeConf.id, challenge_id });
                     for (entrance_config.map_entrance_config.items) |entrance| {
                         if (entrance.id == challengeConf.map_entrance_id2) {
                             for (maze_config.maze_plane_config.items) |maze| {
@@ -142,7 +142,7 @@ pub const ChallengeManager = struct {
                                         ChallengeData.challenge_planeID = maze.challenge_plane_id;
                                         ChallengeData.challenge_entryID = challengeConf.map_entrance_id2;
                                     } else {
-                                        std.debug.print("THIS CHALLENGE ID: {} DOES NOT SUPPORT 2ND NODE. PLEASE DO COMMAND /node TO SWITCH BACK TO FIRST NODE\n", .{challenge_id});
+                                        std.debug.print("此质询 ID：{} 不支持第 2 个节点。请执行命令 /node 切换回第一个节点\n", .{challenge_id});
                                     }
                                 }
                             }

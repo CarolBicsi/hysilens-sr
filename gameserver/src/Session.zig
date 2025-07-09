@@ -51,5 +51,5 @@ pub fn send_empty(self: *Self, cmd_id: protocol.CmdID) !void {
     defer self.allocator.free(packet);
 
     _ = try self.stream.write(packet);
-    log.debug("sent EMPTY packet with id {}", .{cmd_id});
+    log.debug("发送了 ID 为 {} 的空数据包", .{cmd_id});
 }

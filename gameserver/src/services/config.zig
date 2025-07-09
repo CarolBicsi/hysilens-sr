@@ -83,7 +83,7 @@ const ChallengeConfig = struct {
     map_entrance_id: u32,
     map_entrance_id2: u32,
     maze_group_id1: u32,
-    maze_group_id2: ?u32, // to check if it missing MazeGroupID2 field
+    maze_group_id2: ?u32, // 检查是否缺少 MazeGroupID2 字段
     maze_buff_id: u32,
 };
 
@@ -433,7 +433,7 @@ fn parseRelic(relic_str: []const u8, allocator: Allocator) !Relic {
     const tokens_slice = tokens.items;
 
     if (tokens_slice.len < 5) {
-        std.debug.print("relic parsing critical error (too few fields): {s}\n", .{relic_str});
+        std.debug.print("遗器解析严重错误（字段太少）：{s}\n", .{relic_str});
         return error.InsufficientTokens;
     }
 

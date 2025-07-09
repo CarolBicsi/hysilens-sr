@@ -27,7 +27,7 @@ pub fn onSceneEntityMove(session: *Session, packet: *const Packet, allocator: Al
     for (req.entity_motion_list.items) |entity_motion| {
         if (entity_motion.motion) |motion| {
             if (entity_motion.entity_id > 99999 and entity_motion.entity_id < 1000000 or entity_motion.entity_id == 0)
-                log.debug("[POSITION] entity_id: {}, motion: {}", .{ entity_motion.entity_id, motion });
+                log.debug("[位置] 实体ID: {}, 移动: {}", .{ entity_motion.entity_id, motion });
         }
     }
     try session.send(CmdID.CmdSceneEntityMoveScRsp, protocol.SceneEntityMoveScRsp{
@@ -54,7 +54,7 @@ pub fn onEnterScene(session: *Session, packet: *const Packet, allocator: Allocat
         }
     }
     const scene_info = try scene_manager.createScene(planeID, floorID, req.entry_id, teleportID);
-    std.debug.print("ENTER SCENE ENTRY ID: {}, PLANE ID: {}, FLOOR ID: {}, TELEPORT ID: {}\n", .{ req.entry_id, planeID, floorID, teleportID });
+    std.debug.print("进入场�� 入口ID: {}, 平面ID: {}, 楼层ID: {}, 传送点ID: {}\n", .{ req.entry_id, planeID, floorID, teleportID });
     try session.send(CmdID.CmdEnterSceneByServerScNotify, protocol.EnterSceneByServerScNotify{
         .lineup = lineup,
         .reason = protocol.EnterSceneReason.ENTER_SCENE_REASON_NONE,
@@ -143,7 +143,7 @@ pub fn onEnterSection(session: *Session, packet: *const Packet, allocator: Alloc
     const req = try packet.getProto(protocol.EnterSectionCsReq, allocator);
     var rsp = protocol.EnterSectionScRsp.init(allocator);
     rsp.retcode = 0;
-    std.debug.print("ENTER SECTION Id: {}\n", .{req.section_id});
+    std.debug.print("进入区域ID: {}\n", .{req.section_id});
     try session.send(CmdID.CmdEnterSectionScRsp, rsp);
 }
 
@@ -172,7 +172,7 @@ pub fn onSceneEntityTeleport(session: *Session, packet: *const Packet, allocator
     var rsp = protocol.SceneEntityTeleportScRsp.init(allocator);
     rsp.retcode = 0;
     rsp.entity_motion = req.entity_motion;
-    std.debug.print("SCENE ENTITY TP ENTRY ID: {}\n", .{req.entry_id});
+    std.debug.print("场景实体传送 入口ID: {}\n", .{req.entry_id});
     try session.send(CmdID.CmdSceneEntityTeleportScRsp, rsp);
 }
 
@@ -226,7 +226,7 @@ pub fn onChangePropTimeline(session: *Session, packet: *const Packet, allocator:
 }
 pub fn onDeactivateFarmElement(session: *Session, packet: *const Packet, allocator: Allocator) !void {
     const req = try packet.getProto(protocol.DeactivateFarmElementCsReq, allocator);
-    std.debug.print("DEACTIVATE FARM ELEMENT ENTITY ID: {}\n", .{req.entity_id});
+    std.debug.print("停用Farm元素 实体ID: {}\n", .{req.entity_id});
     try session.send(CmdID.CmdDeactivateFarmElementScRsp, protocol.DeactivateFarmElementScRsp{
         .retcode = 0,
         .entity_id = req.entity_id,
@@ -234,7 +234,7 @@ pub fn onDeactivateFarmElement(session: *Session, packet: *const Packet, allocat
 }
 pub fn onActivateFarmElement(session: *Session, packet: *const Packet, allocator: Allocator) !void {
     const req = try packet.getProto(protocol.ActivateFarmElementCsReq, allocator);
-    std.debug.print("ACTIVATE FARM ELEMENT ENTITY ID: {}\n", .{req.entity_id});
+    std.debug.print("激活Farm元素 实体ID: {}\n", .{req.entity_id});
     try session.send(CmdID.CmdActivateFarmElementScRsp, protocol.ActivateFarmElementScRsp{
         .retcode = 0,
         .world_level = req.world_level,
@@ -245,13 +245,13 @@ pub fn onSetGroupCustomSaveData(session: *Session, packet: *const Packet, alloca
     const req = try packet.getProto(protocol.SetGroupCustomSaveDataCsReq, allocator);
     //switch (req.AAMHHECOCOI) {
     //    .Owned => |val| {
-    //        std.debug.print("CUSTOM SAVE DATA REQ: {s}\n", .{val.str});
+    //        std.debug.print("自定义保存数据请求: {s}\n", .{val.str});
     //    },
     //    .Const => |val| {
-    //        std.debug.print("CUSTOM SAVE DATA REQ: {s}\n", .{val});
+    //        std.debug.print("自定义保存数据请求: {s}\n", .{val});
     //    },
     //    .Empty => {
-    //        std.debug.print("CUSTOM SAVE DATA REQ: <empty string>\n", .{});
+    //        std.debug.print("自定义保存数据请求: <空字符串>\n", .{});
     //    },
     //}
     try session.send(CmdID.CmdSetGroupCustomSaveDataScRsp, protocol.SetGroupCustomSaveDataScRsp{

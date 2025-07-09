@@ -11,7 +11,7 @@ pub fn onPlayerGetToken(session: *Session, _: *const Packet, allocator: Allocato
     var rsp = protocol.PlayerGetTokenScRsp.init(allocator);
 
     rsp.retcode = 0;
-    rsp.uid = 1;
+    rsp.uid = 114514;
 
     try session.send(CmdID.CmdPlayerGetTokenScRsp, rsp);
 }
@@ -22,7 +22,7 @@ pub fn onPlayerLogin(session: *Session, packet: *const Packet, allocator: Alloca
     var basic_info = protocol.PlayerBasicInfo.init(allocator);
     basic_info.stamina = 300;
     basic_info.level = 70;
-    basic_info.nickname = .{ .Const = "ReversedRooms" };
+    basic_info.nickname = .{ .Const = "Ciallo～(∠・ω< )⌒☆" };
     basic_info.world_level = 6;
     basic_info.mcoin = 99999990;
     basic_info.hcoin = 99999990; //Jade

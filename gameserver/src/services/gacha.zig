@@ -9,7 +9,7 @@ const ArrayList = std.ArrayList;
 const Allocator = std.mem.Allocator;
 const CmdID = protocol.CmdID;
 
-// function to check the list if true
+// 检查列表中是否包含指定ID的函数
 fn isInList(id: u32, list: []const u32) bool {
     for (list) |item| {
         if (item == id) {
@@ -36,7 +36,7 @@ pub fn onGetGachaInfo(session: *Session, _: *const Packet, allocator: Allocator)
     };
     gacha_info.KMNJNMJFGBG = 1;
     gacha_info.GDIFAAHIFBH = 3;
-    gacha_info.gacha_id = 1001; // standard banner
+    gacha_info.gacha_id = 1001; // 常驻卡池
 
     var rsp = protocol.GetGachaInfoScRsp.init(allocator);
 
@@ -215,8 +215,8 @@ pub fn onDoGacha(session: *Session, packet: *const Packet, allocator: std.mem.Al
     rsp.GDIFAAHIFBH = 3;
     rsp.retcode = 0;
 
-    std.debug.print("FIVE STAR PITY: {}, (RATE: {d:.4}%)\n", .{ five_star_pity, getFiveStarRate(five_star_pity) * 100.0 });
-    std.debug.print("FOUR STAR PITY: {}, (RATE: {d:.4}%)\n", .{ four_star_pity, getFourStarRate(four_star_pity) * 100.0 });
+    std.debug.print("五星保底: {}, (概率: {d:.4}%)\n", .{ five_star_pity, getFiveStarRate(five_star_pity) * 100.0 });
+    std.debug.print("四星保底: {}, (概率: {d:.4}%)\n", .{ four_star_pity, getFourStarRate(four_star_pity) * 100.0 });
 
     try session.send(protocol.CmdID.CmdDoGachaScRsp, rsp);
 }

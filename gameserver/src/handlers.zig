@@ -33,7 +33,7 @@ const HandlerList = [_]struct { CmdID, Action }{
     .{ CmdID.CmdPlayerLoginFinishCsReq, login.onPlayerLoginFinish },
     .{ CmdID.CmdContentPackageGetDataCsReq, login.onContentPackageGetData },
     .{ CmdID.CmdSetClientPausedCsReq, login.onSetClientPaused },
-    //avatar
+    //角色相关
     .{ CmdID.CmdGetAvatarDataCsReq, avatar.onGetAvatarData },
     .{ CmdID.CmdSetAvatarPathCsReq, avatar.onSetAvatarPath },
     .{ CmdID.CmdGetBasicInfoCsReq, avatar.onGetBasicInfo },
@@ -42,14 +42,14 @@ const HandlerList = [_]struct { CmdID, Action }{
     .{ CmdID.CmdGetBigDataAllRecommendCsReq, avatar.onGetBigDataAll },
     .{ CmdID.CmdGetBigDataRecommendCsReq, avatar.onGetBigData },
     .{ CmdID.CmdGetPreAvatarGrowthInfoCsReq, avatar.onGetPreAvatarGrowthInfo },
-    //bag
+    //背包相关
     .{ CmdID.CmdGetBagCsReq, item.onGetBag },
     .{ CmdID.CmdUseItemCsReq, item.onUseItem },
-    //lineup
+    //队伍相关
     .{ CmdID.CmdChangeLineupLeaderCsReq, lineup.onChangeLineupLeader },
     .{ CmdID.CmdReplaceLineupCsReq, lineup.onReplaceLineup },
     .{ CmdID.CmdGetCurLineupDataCsReq, lineup.onGetCurLineupData },
-    //battle
+    //战斗相关
     .{ CmdID.CmdStartCocoonStageCsReq, battle.onStartCocoonStage },
     .{ CmdID.CmdPVEBattleResultCsReq, battle.onPVEBattleResult },
     .{ CmdID.CmdSceneCastSkillCsReq, battle.onSceneCastSkill },
@@ -59,19 +59,19 @@ const HandlerList = [_]struct { CmdID, Action }{
     .{ CmdID.CmdStartBattleCollegeCsReq, battle.onStartBattleCollege },
     .{ CmdID.CmdGetCurBattleInfoCsReq, battle.onGetCurBattleInfo },
     .{ CmdID.CmdSyncClientResVersionCsReq, battle.onSyncClientResVersion },
-    //gacha
+    //抽卡相关
     .{ CmdID.CmdGetGachaInfoCsReq, gacha.onGetGachaInfo },
     .{ CmdID.CmdBuyGoodsCsReq, gacha.onBuyGoods },
     .{ CmdID.CmdGetShopListCsReq, gacha.onGetShopList },
     .{ CmdID.CmdExchangeHcoinCsReq, gacha.onExchangeHcoin },
     .{ CmdID.CmdDoGachaCsReq, gacha.onDoGacha },
-    //mail
+    //邮件相关
     .{ CmdID.CmdGetMailCsReq, mail.onGetMail },
-    //pet
+    //宠物相关
     .{ CmdID.CmdGetPetDataCsReq, pet.onGetPetData },
     .{ CmdID.CmdRecallPetCsReq, pet.onRecallPet },
     .{ CmdID.CmdSummonPetCsReq, pet.onSummonPet },
-    //profile
+    //档案相关
     .{ CmdID.CmdGetPhoneDataCsReq, profile.onGetPhoneData },
     .{ CmdID.CmdSelectPhoneThemeCsReq, profile.onSelectPhoneTheme },
     .{ CmdID.CmdSelectChatBubbleCsReq, profile.onSelectChatBubble },
@@ -82,19 +82,19 @@ const HandlerList = [_]struct { CmdID, Action }{
     .{ CmdID.CmdSetGameplayBirthdayCsReq, profile.onSetGameplayBirthday },
     .{ CmdID.CmdSetHeadIconCsReq, profile.onSetHeadIcon },
     .{ CmdID.CmdSelectPhoneCaseCsReq, profile.onSelectPhoneCase },
-    //mission
+    //任务相关
     .{ CmdID.CmdGetTutorialGuideCsReq, mission.onGetTutorialGuideStatus },
     .{ CmdID.CmdGetMissionStatusCsReq, mission.onGetMissionStatus },
     .{ CmdID.CmdGetTutorialCsReq, mission.onGetTutorialStatus },
     .{ CmdID.CmdUnlockTutorialGuideCsReq, mission.onUnlockTutorialGuide },
     .{ CmdID.CmdUnlockTutorialCsReq, mission.onUnlockTutorial },
     .{ CmdID.CmdFinishTalkMissionCsReq, mission.onFinishTalkMission },
-    //chat
+    //聊天相关
     .{ CmdID.CmdGetFriendListInfoCsReq, chat.onGetFriendListInfo },
     .{ CmdID.CmdGetPrivateChatHistoryCsReq, chat.onPrivateChatHistory },
     .{ CmdID.CmdGetChatEmojiListCsReq, chat.onChatEmojiList },
     .{ CmdID.CmdSendMsgCsReq, chat.onSendMsg },
-    //scene
+    //场景相关
     .{ CmdID.CmdGetCurSceneInfoCsReq, scene.onGetCurSceneInfo },
     .{ CmdID.CmdSceneEntityMoveCsReq, scene.onSceneEntityMove },
     .{ CmdID.CmdEnterSceneCsReq, scene.onEnterScene },
@@ -110,10 +110,10 @@ const HandlerList = [_]struct { CmdID, Action }{
     .{ CmdID.CmdDeactivateFarmElementCsReq, scene.onDeactivateFarmElement },
     .{ CmdID.CmdSetGroupCustomSaveDataCsReq, scene.onSetGroupCustomSaveData },
     .{ CmdID.CmdGetEnteredSceneCsReq, scene.onGetEnteredScene },
-    //events
+    //活动相关
     .{ CmdID.CmdGetActivityScheduleConfigCsReq, events.onGetActivity },
     .{ CmdID.CmdUpdateServerPrefsDataCsReq, events.onUpdateServerPrefsData },
-    //challenge
+    //挑战相关
     .{ CmdID.CmdGetChallengeCsReq, challenge.onGetChallenge },
     .{ CmdID.CmdGetChallengeGroupStatisticsCsReq, challenge.onGetChallengeGroupStatistics },
     .{ CmdID.CmdStartChallengeCsReq, challenge.onStartChallenge },
@@ -154,14 +154,14 @@ const DummyCmdList = [_]struct { CmdID, CmdID }{
     .{ CmdID.CmdRogueTournGetCurRogueCocoonInfoCsReq, CmdID.CmdRogueTournGetCurRogueCocoonInfoScRsp },
     .{ CmdID.CmdRogueMagicQueryCsReq, CmdID.CmdRogueMagicQueryScRsp },
     .{ CmdID.CmdMusicRhythmDataCsReq, CmdID.CmdMusicRhythmDataScRsp },
-    //friendlist
+    //好友列表相关
     .{ CmdID.CmdGetFriendApplyListInfoCsReq, CmdID.CmdGetFriendApplyListInfoScRsp },
     .{ CmdID.CmdGetChatFriendHistoryCsReq, CmdID.CmdGetChatFriendHistoryScRsp },
     .{ CmdID.CmdGetFriendLoginInfoCsReq, CmdID.CmdGetFriendLoginInfoScRsp },
     .{ CmdID.CmdGetFriendBattleRecordDetailCsReq, CmdID.CmdGetFriendBattleRecordDetailScRsp },
     .{ CmdID.CmdGetFriendDevelopmentInfoCsReq, CmdID.CmdGetFriendDevelopmentInfoScRsp },
     .{ CmdID.CmdGetFriendRecommendListInfoCsReq, CmdID.CmdGetFriendRecommendListInfoScRsp },
-    //add
+    //其他功能
     .{ CmdID.CmdSwitchHandDataCsReq, CmdID.CmdSwitchHandDataScRsp },
     .{ CmdID.CmdRogueArcadeGetInfoCsReq, CmdID.CmdRogueArcadeGetInfoScRsp },
     .{ CmdID.CmdGetMissionMessageInfoCsReq, CmdID.CmdGetMissionMessageInfoScRsp },
@@ -247,7 +247,7 @@ pub fn handle(session: *Session, packet: *const Packet) !void {
         if (handler[0] == cmd_id) {
             try handler[1](session, packet, arena.allocator());
             if (!std.mem.containsAtLeast(CmdID, &SuppressLogList, 1, &[_]CmdID{cmd_id})) {
-                log.debug("packet {} was handled", .{cmd_id});
+                log.debug("数据包 {} 已被处理", .{cmd_id});
             }
             return;
         }
@@ -260,5 +260,5 @@ pub fn handle(session: *Session, packet: *const Packet) !void {
         }
     }
 
-    log.warn("packet {} was ignored", .{cmd_id});
+    log.warn("数据包 {} 被忽略", .{cmd_id});
 }

@@ -10,7 +10,7 @@ const ArrayList = std.ArrayList;
 const Allocator = std.mem.Allocator;
 const CmdID = protocol.CmdID;
 
-// can change these id here for initial display
+// 可以在这里更改这些ID以进行初始显示
 const SupportAvatar = [_]u32{
     1407, 1403, 1402,
 };
@@ -106,7 +106,7 @@ pub fn onSetHeadIcon(session: *Session, packet: *const Packet, allocator: Alloca
     var rsp = protocol.SetHeadIconScRsp.init(allocator);
     rsp.retcode = 0;
     rsp.current_head_icon_id = req.id;
-    std.debug.print("SET HEAD ICON ID: {}\n", .{req.id});
+    std.debug.print("设置头像ID: {}\n", .{req.id});
     try session.send(CmdID.CmdSetHeadIconScRsp, rsp);
 }
 pub fn onSelectPhoneCase(session: *Session, packet: *const Packet, allocator: Allocator) !void {
@@ -114,6 +114,6 @@ pub fn onSelectPhoneCase(session: *Session, packet: *const Packet, allocator: Al
     var rsp = protocol.SelectPhoneCaseScRsp.init(allocator);
     rsp.retcode = 0;
     rsp.cur_phone_case = req.phone_case_id;
-    std.debug.print("SET PHONE CASE ID: {}\n", .{req.phone_case_id});
+    std.debug.print("设置手机壳ID: {}\n", .{req.phone_case_id});
     try session.send(CmdID.CmdSelectPhoneCaseScRsp, rsp);
 }

@@ -11,15 +11,15 @@ const OSPROD_HOST = "prod-official-asia-dp01.starrails.com";
 const OSBETA_HOST = "beta-release01-asia.starrails.com";
 
 pub fn onQueryDispatch(_: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onQueryDispatch", .{});
+    std.log.debug("查询调度", .{});
 
     var proto = protocol.Dispatch.init(res.arena);
 
     const region_info = protocol.RegionInfo{
-        .name = .{ .Const = "HysilensSR" },
-        .display_name = .{ .Const = "HysilensSR" },
+        .name = .{ .Const = "Ciallo～(∠・ω< )⌒☆" },
+        .display_name = .{ .Const = "Ciallo～(∠・ω< )⌒☆" },
         .env_type = .{ .Const = "21" },
-        .title = .{ .Const = "HysilensSR" },
+        .title = .{ .Const = "Ciallo～(∠・ω< )⌒☆" },
         .dispatch_url = .{ .Const = "http://127.0.0.1:21000/query_gateway" },
     };
 
@@ -34,17 +34,17 @@ pub fn onQueryDispatch(_: *httpz.Request, res: *httpz.Response) !void {
 }
 
 pub fn onQueryGateway(req: *httpz.Request, res: *httpz.Response) !void {
-    std.log.debug("onQueryGateway", .{});
+    std.log.debug("查询网关", .{});
 
     var proto = protocol.GateServer.init(res.arena);
     const query = try req.query();
     const version = query.get("version") orelse "";
-    std.log.info("Get Version >> {s}", .{version});
+    std.log.info("获取版本 >> {s}", .{version});
     const dispatch_seed = query.get("dispatch_seed") orelse "";
-    std.log.info("Get DispatchSeed >> {s}", .{dispatch_seed});
+    std.log.info("获取调度种子 >> {s}", .{dispatch_seed});
     const host = selectHost(version);
     const gatewayUrl = constructUrl(host, version, dispatch_seed);
-    std.log.info("Constructed Gateway URL >> {s}", .{gatewayUrl});
+    std.log.info("构造的网关URL >> {s}", .{gatewayUrl});
     const hotfix = try hotfixInfo.Parser(res.arena, "hotfix.json", version);
 
     var assetBundleUrl: []const u8 = undefined;
@@ -54,7 +54,7 @@ pub fn onQueryGateway(req: *httpz.Request, res: *httpz.Response) !void {
     //var luaVersion: []const u8 = undefined;
     //var iFixVersion: []const u8 = undefined;
 
-    //HTTP Request
+    //HTTP请求
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
@@ -77,17 +77,17 @@ pub fn onQueryGateway(req: *httpz.Request, res: *httpz.Response) !void {
     try gateway_request.wait();
     const gateway_response_body = try gateway_request.reader().readAllAlloc(allocator, 16 * 1024 * 1024);
 
-    //Base64 Decode
+    //Base64解码
     const decoded_len = try Base64Decoder.calcSizeForSlice(gateway_response_body);
     const decoded_data = try allocator.alloc(u8, decoded_len);
     defer allocator.free(decoded_data);
     try Base64Decoder.decode(decoded_data, gateway_response_body);
-    //Gateserver Protobuf Decode
+    //网关服务器Protobuf解码
     const gateserver_proto = try protocol.GateServer.decode(decoded_data, res.arena);
 
-    //std.log.info("\x1b[33;1mEncoded Gateway Response >> {s}\x1b[0m", .{gateway_response_body});
-    //std.log.info("\x1b[32;1mDecoded Gateway Response >> {s}\x1b[0m", .{decoded_data});
-    //std.log.info("\x1b[33;1mProtobuf Message >> {}\x1b[0m", .{gateserver_proto});
+    //std.log.info("\x1b[33;1m编码的网关响应 >> {s}\x1b[0m", .{gateway_response_body});
+    //std.log.info("\x1b[32;1m解码的网关响应 >> {s}\x1b[0m", .{decoded_data});
+    //std.log.info("\x1b[33;1mProtobuf消息 >> {}\x1b[0m", .{gateserver_proto});
 
     assetBundleUrl = hotfix.assetBundleUrl;
     exResourceUrl = hotfix.exResourceUrl;
@@ -103,10 +103,10 @@ pub fn onQueryGateway(req: *httpz.Request, res: *httpz.Response) !void {
         try hotfixInfo.putValue(version, assetBundleUrl, exResourceUrl, luaUrl, iFixUrl);
     }
 
-    std.log.info("Get AssetBundleUrl >> {s}", .{assetBundleUrl});
-    std.log.info("Get ExResourceUrl >> {s}", .{exResourceUrl});
-    std.log.info("Get LuaUrl >> {s}", .{luaUrl});
-    std.log.info("Get IFixUrl >> {s}", .{iFixUrl});
+    std.log.info("获取资源包URL >> {s}", .{assetBundleUrl});
+    std.log.info("获取扩展资源URL >> {s}", .{exResourceUrl});
+    std.log.info("获取Lua URL >> {s}", .{luaUrl});
+    std.log.info("获取IFix URL >> {s}", .{iFixUrl});
 
     proto.retcode = 0;
     proto.port = 23301;

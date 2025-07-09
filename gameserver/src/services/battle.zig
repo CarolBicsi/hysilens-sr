@@ -83,8 +83,8 @@ pub fn onSceneCastSkill(session: *Session, packet: *const Packet, allocator: All
     const req = try packet.getProto(protocol.SceneCastSkillCsReq, allocator);
     var battle_info: ?protocol.SceneBattleInfo = null;
     var monster_battle_info_list = ArrayList(protocol.HitMonsterBattleInfo).init(allocator);
-    Highlight("SKILL INDEX: {}", .{req.skill_index});
-    Highlight("ATTACKED BY ENTITY ID: {}", .{req.attacked_by_entity_id});
+    Highlight("技能指标：{}", .{req.skill_index});
+    Highlight("被实体 ID 攻击：{}", .{req.attacked_by_entity_id});
     const is_challenge = ChallengeData.on_challenge;
     for (req.assist_monster_entity_id_list.items) |id| {
         const attacker_id = req.attacked_by_entity_id;
@@ -92,7 +92,7 @@ pub fn onSceneCastSkill(session: *Session, packet: *const Packet, allocator: All
         const bt = getBattleType(id, attacker_id, skill_index, is_challenge);
         if (is_challenge) {
             if ((attacker_id <= 1000) or (id < 1000)) {
-                Highlight("CHALLENGE, MONSTER ENTITY ID: {} -> {}", .{ id, bt });
+                Highlight("挑战，怪物实体 ID：{} -> {}", .{ id, bt });
                 try monster_battle_info_list.append(.{
                     .target_monster_entity_id = id,
                     .monster_battle_type = bt,
@@ -103,7 +103,7 @@ pub fn onSceneCastSkill(session: *Session, packet: *const Packet, allocator: All
             }
         } else {
             if ((attacker_id <= 1000 or attacker_id > 1000000) or (id < 1000 or id > 1000000)) {
-                Highlight("BATTLE, MONSTER ENTITY ID: {} -> {}", .{ id, bt });
+                Highlight("战斗、怪物实体 ID：{} -> {}", .{ id, bt });
                 try monster_battle_info_list.append(.{
                     .target_monster_entity_id = id,
                     .monster_battle_type = bt,

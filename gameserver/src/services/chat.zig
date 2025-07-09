@@ -25,12 +25,12 @@ pub fn onGetFriendListInfo(session: *Session, _: *const Packet, allocator: Alloc
 
     var friend = protocol.FriendSimpleInfo.init(allocator);
     friend.playing_state = .PLAYING_CHALLENGE_BOSS;
-    friend.create_time = 0; //timestamp
-    friend.remark_name = .{ .Const = "ReversedRooms" }; //friend_custom_nickname
+    friend.create_time = 0; //时间戳
+    friend.remark_name = .{ .Const = "Ciallo～(∠・ω< )⌒☆" }; //好友自定义昵称
     friend.is_marked = true;
     friend.player_info = protocol.PlayerSimpleInfo{
-        .signature = .{ .Const = "https://discord.gg/reversedrooms" },
-        .nickname = .{ .Const = "HysilensSR" },
+        .signature = .{ .Const = "这是免费的模拟器，如果你花钱了，请立即退款并举报，最后Ciallo～(∠・ω< )⌒☆" },
+        .nickname = .{ .Const = "Ciallo～(∠・ω< )⌒☆" },
         .level = 70,
         .uid = 2000,
         .head_icon = 200140,
@@ -59,19 +59,19 @@ pub fn onPrivateChatHistory(session: *Session, _: *const Packet, allocator: Allo
     rsp.contact_side = 2000;
     try rsp.chat_message_list.appendSlice(&[_]protocol.ChatMessageData{
         .{
-            .content = .{ .Const = "Use https://relic-builder.vercel.app/ to setup config" },
+            .content = .{ .Const = "使用 https://relic-builder.vercel.app/ 来设置配置" },
             .message_type = .MSG_TYPE_CUSTOM_TEXT,
             .create_time = 0,
             .sender_id = 2000,
         },
         .{
-            .content = .{ .Const = "/help for command list" },
+            .content = .{ .Const = "/help 查看命令列表" },
             .message_type = .MSG_TYPE_CUSTOM_TEXT,
             .create_time = 0,
             .sender_id = 2000,
         },
         .{
-            .content = .{ .Const = "to use command, use '/' first" },
+            .content = .{ .Const = "使用命令时，请先输入 '/'" },
             .message_type = .MSG_TYPE_CUSTOM_TEXT,
             .create_time = 0,
             .sender_id = 2000,
@@ -87,10 +87,10 @@ pub fn onPrivateChatHistory(session: *Session, _: *const Packet, allocator: Allo
     try session.send(CmdID.CmdGetPrivateChatHistoryScRsp, rsp);
 }
 pub fn onSendMsg(session: *Session, packet: *const Packet, allocator: Allocator) !void {
-    std.debug.print("Received packet: {any}\n", .{packet});
+    std.debug.print("收到数据包：{any}\n", .{packet});
     const req = protocol.SendMsgCsReq.init(allocator);
-    std.debug.print("Decoded request: {any}\n", .{req});
-    std.debug.print("Raw packet body: {any}\n", .{packet.body});
+    std.debug.print("已解码请求：{any}\n", .{req});
+    std.debug.print("原始数据包正文：{any}\n", .{packet.body});
     const msg_text = switch (req.message_text) {
         .Empty => "",
         .Owned => |owned| owned.str,
@@ -100,20 +100,20 @@ pub fn onSendMsg(session: *Session, packet: *const Packet, allocator: Allocator)
     if (packet.body.len > 9 and packet.body[2] == 47) {
         msg_text2 = packet.body[2 .. packet.body.len - 8];
     }
-    std.debug.print("Manually extracted message text: '{s}'\n", .{msg_text2});
+    std.debug.print("手动提取的消息文本：'{s}'\n", .{msg_text2});
 
-    std.debug.print("Message Text 1: {any}\n", .{msg_text});
+    std.debug.print("消息文本 1: {any}\n", .{msg_text});
 
     if (msg_text2.len > 0) {
         if (std.mem.indexOf(u8, msg_text2, "/") != null) {
-            std.debug.print("Message contains a '/'\n", .{});
+            std.debug.print("消息包含 \"/\"\n", .{});
             try commandhandler.handleCommand(session, msg_text2, allocator);
         } else {
-            std.debug.print("Message does not contain a '/'\n", .{});
+            std.debug.print("消息不包含 \"/\"\n", .{});
             try commandhandler.sendMessage(session, msg_text2, allocator);
         }
     } else {
-        std.debug.print("Empty message received\n", .{});
+        std.debug.print("收到空消息\n", .{});
     }
 
     var rsp = protocol.SendMsgScRsp.init(allocator);

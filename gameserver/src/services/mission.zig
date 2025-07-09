@@ -59,7 +59,7 @@ pub fn onUnlockTutorialGuide(session: *Session, packet: *const Packet, allocator
     const req = try packet.getProto(protocol.UnlockTutorialGuideCsReq, allocator);
     var rsp = protocol.UnlockTutorialGuideScRsp.init(allocator);
     rsp.retcode = 0;
-    std.debug.print("UNLOCK TUTORIAL GUIDE ID: {}\n", .{req.group_id});
+    std.debug.print("解锁教程指南 ID: {}\n", .{req.group_id});
     try session.send(CmdID.CmdUnlockTutorialGuideScRsp, rsp);
 }
 // added this to auto detect new tutorial id
@@ -67,6 +67,6 @@ pub fn onUnlockTutorial(session: *Session, packet: *const Packet, allocator: All
     const req = try packet.getProto(protocol.UnlockTutorialCsReq, allocator);
     var rsp = protocol.UnlockTutorialScRsp.init(allocator);
     rsp.retcode = 0;
-    std.debug.print("UNLOCK TUTORIAL ID: {}\n", .{req.tutorial_id});
+    std.debug.print("解锁教程 ID: {}\n", .{req.tutorial_id});
     try session.send(CmdID.CmdUnlockTutorialScRsp, rsp);
 }

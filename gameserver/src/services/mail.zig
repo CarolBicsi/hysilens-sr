@@ -17,10 +17,10 @@ pub fn onGetMail(session: *Session, _: *const Packet, allocator: Allocator) !voi
     });
     var mail = protocol.ClientMail.init(allocator);
     mail.sender = .{ .Const = "Castorice" };
-    mail.title = .{ .Const = "Readme" };
+    mail.title = .{ .Const = "Ciallo～(∠・ω< )⌒☆" };
     mail.is_read = false;
     mail.id = 1;
-    mail.content = .{ .Const = "HysilensSR is a free and open-source sofware\nJoin our discord: https://discord.gg/reversedrooms\nUse https://relic-builder.vercel.app to setup relic :Đ\nAND DO NOT CLAIM THIS MAIL :>" };
+    mail.content = .{ .Const = "这是免费的模拟器，如果你花钱了，请立即退款并举报，最后Ciallo～(∠・ω< )⌒☆" };
     mail.time = 1723334400;
     mail.expire_time = 17186330890;
     mail.mail_type = protocol.MailType.MAIL_TYPE_STAR;
