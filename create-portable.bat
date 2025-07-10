@@ -238,6 +238,18 @@ echo 注意事项： >> "%RELEASE_DIR%\README.txt"
 echo - 请确保端口21000和22000未被占用 >> "%RELEASE_DIR%\README.txt"
 echo - 如需修改配置，请编辑config.json文件 >> "%RELEASE_DIR%\README.txt"
 echo - 资源文件位于resources目录中 >> "%RELEASE_DIR%\README.txt"
+echo - 备注：此便携版仅供个人学习和测试使用，请勿用于商业用途 >> "%RELEASE_DIR%\README.txt"
+echo - 任何问题请联系开发者 >> "%RELEASE_DIR%\README.txt"
+echo - 祝您使用愉快！ >> "%RELEASE_DIR%\README.txt"
+echo. >> "%RELEASE_DIR%\README.txt"
+echo 开发者： >> "%RELEASE_DIR%\README.txt"
+echo - B站Up主原神再起不能动 >> "%RELEASE_DIR%\README.txt"
+echo - QQ群：822751143 >> "%RELEASE_DIR%\README.txt"
+echo. >> "%RELEASE_DIR%\README.txt"
+echo 特别鸣谢： >> "%RELEASE_DIR%\README.txt"
+echo - HonkaiSlopRail以及xeondev，Năng Pờ Rào the Sillyism CFO，以及所有为此项目做出贡献的人。 >> "%RELEASE_DIR%\README.txt"
+echo - 感谢他们的支持和帮助！ >> "%RELEASE_DIR%\README.txt"
+echo - 如果您没有测试服游戏本体，请前往B站或者QQ群找我 >> "%RELEASE_DIR%\README.txt"
 
 echo [7/7] 完成便携版制作...
 echo.
