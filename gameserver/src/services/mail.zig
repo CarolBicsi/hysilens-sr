@@ -21,8 +21,8 @@ pub fn onGetMail(session: *Session, _: *const Packet, allocator: Allocator) !voi
     mail.is_read = false;
     mail.id = 1;
     mail.content = .{ .Const = "这是免费的模拟器，如果你花钱了，请立即退款并举报，最后Ciallo～(∠・ω< )⌒☆" };
-    mail.time = 1723334400;
-    mail.expire_time = 17186330890;
+    mail.time = std.time.timestamp();
+    mail.expire_time = std.time.timestamp() + 60 * 60 * 24 * 30; // 30 days
     mail.mail_type = protocol.MailType.MAIL_TYPE_STAR;
     mail.attachment = .{ .item_list = item_attachment };
 
